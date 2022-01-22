@@ -7,15 +7,7 @@ const productSchema = mongoose.Schema({
     pattern: ['Arrays'],
     difficulty: { type: String, enum: ['easy', 'medium', 'hard'] },
     premium: Boolean,
-    companies: [
-        'Amazon',
-        'Adobe',
-        'Google',
-        'Bloomberg',
-        'Facebook',
-        'Apple',
-        'Microsoft',
-    ],
+   
     likes: { type: Number, require: true },
     sharedCount: { type: Number, require: true },
     video: { type: String, require: true },
@@ -23,3 +15,13 @@ const productSchema = mongoose.Schema({
 });
 
 module.exports = mongoose.model('Product', productSchema);
+
+// companies: [
+//     'Amazon',
+//     'Adobe',
+//     'Google',
+//     'Bloomberg',
+//     'Facebook',
+//     'Apple',
+//     'Microsoft',
+// ],
