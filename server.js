@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 // app.use(bodyParser.json());
 
 mongoose.connect(
-    "mongodb://localhost:27017/rent-all",
+    "mongodb://localhost:27017/learn-tube",
     {
       autoIndex: false, // Don't build indexes
       maxPoolSize: 10, // Maintain up to 10 socket connections
@@ -17,7 +17,10 @@ mongoose.connect(
       socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
       family: 4 // Use IPv4, skip trying IPv6
     }
-  );
+  ).then((res)=>{
+    console.log('database created');
+    console.log(res);
+  }).catch(err=>console.log(err));
 
 
   // app.use((req, res, next) => {
