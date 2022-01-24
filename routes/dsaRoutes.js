@@ -1,6 +1,6 @@
 const express=require('express');
 const dsaRoutes = express.Router();
-const questionModel=require('../model/question');
+const questionModel=require('../models/questionSchema');
 
 dsaRoutes.get('/',async (req,res)=>{
     
@@ -15,3 +15,4 @@ dsaRoutes.get('/',async (req,res)=>{
 });
 
 module.exports=dsaRoutes;
+
