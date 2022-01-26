@@ -1,6 +1,7 @@
 const express = require("express");
 const dsaRoutes = express.Router();
-const questionModel = require("../models/questionSchema");
+const questionModel=require('../models/questionSchema');
+
 
 dsaRoutes.get("/", async (req, res) => {
   try {
@@ -12,4 +13,4 @@ dsaRoutes.get("/", async (req, res) => {
   }
 });
 
-module.exports = dsaRoutes;
+module.exports=dsaRoutes;
