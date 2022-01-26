@@ -13,7 +13,7 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 app.use("/dsa", dsaRoutes);
-app.use("/api", userRoutes);
+app.use("/api/users", userRoutes);
 
 app.listen(port, () => console.log(`Server is listening on port: ${port}`));
 
