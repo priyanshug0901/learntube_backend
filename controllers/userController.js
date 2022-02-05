@@ -1,6 +1,8 @@
 const User = require("../models/userSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const short = require("short-uuid");
+// const
 // Input Validation
 const validateLoginInput = require("../validation/login");
 const validateRegisterInput = require("../validation/register");
@@ -9,7 +11,10 @@ const keys = require("../config/keys");
 
 function registerController(req, res) {
   const { errors, isValid } = validateRegisterInput(req.body);
-
+  const translator = short(short.constants.flickrBase58, {
+    consistentLength: false,
+  });
+  console.log(translator.new());
   if (!isValid) {
     return res.status(400).json(errors);
   }
@@ -18,6 +23,7 @@ function registerController(req, res) {
       return res.status(409).json({ email: "Email already exists" });
     } else {
       const newUser = new User({
+        userId: translator.new(),
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
