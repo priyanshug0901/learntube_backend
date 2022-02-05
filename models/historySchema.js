@@ -1,16 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const PlaylistSchema = Schema({
+const HistorySchema = new Schema({
   userId: {
     type: String,
-    unique: true,
     required: true,
   },
-  playlist: {
+  historyList: {
     type: Schema.Types.Mixed,
     required: true,
   },
 });
 
-module.exports = Playlist = mongoose.model("playlist", PlaylistSchema);
+module.exports = History = mongoose.model("history", HistorySchema);
