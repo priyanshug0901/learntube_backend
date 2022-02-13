@@ -1,5 +1,6 @@
 const express = require("express");
-const verifyToken = require("../config/passport").verifyToken;
+const { verifyAccessToken } = require("../config/jwt.helper");
+
 const {
   getQuestionController,
   addRecordController,
@@ -8,7 +9,7 @@ const {
 const router = express.Router();
 
 router.get("/", getQuestionController);
-router.post("/:id", verifyToken, addRecordController);
-router.put("/:id", verifyToken, userLikedQuestionController);
+router.post("/:id", verifyAccessToken, addRecordController);
+router.put("/:id", verifyAccessToken, userLikedQuestionController);
 
 module.exports = router;

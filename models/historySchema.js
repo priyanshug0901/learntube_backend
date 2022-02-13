@@ -6,9 +6,14 @@ const HistorySchema = new Schema({
     type: String,
     required: true,
   },
-  historyList: {
+  question: {
     type: Schema.Types.Mixed,
     required: true,
+    unique: true,
+  },
+  archive: {
+    type: Boolean,
+    default: true,
   },
 });
 

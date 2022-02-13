@@ -17,15 +17,4 @@ mongoose
     console.log(err);
   });
 
-// const blogSchema = new Schema({
-//   title: String, // String is shorthand for {type: String}
-// });
-
-// const MyModel = mongoose.model("Test", blogSchema);
-// MyModel.create({ title: "vinit" })
-//   .then((res) => {
-//     console.log(res);
-//   })
-//   .catch((err) => console.log(err));
-
 module.exports = mongoose;
