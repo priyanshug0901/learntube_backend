@@ -59,4 +59,15 @@ module.exports = {
       });
     });
   },
+  verifyRefreshToken: (refreshToken) => {
+    return new Promise((resolve, reject) => {
+      JWT.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, payload) => {
+        if (err) {
+          reject(createError.Unauthorized());
+        }
+        let userId = payload.aud;
+        resolve(userId);
+      });
+    });
+  },
 };

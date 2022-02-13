@@ -8,7 +8,11 @@ const createError = require("http-errors");
 const validateLoginInput = require("../validation/login");
 const validateRegisterInput = require("../validation/register");
 const passport = require("passport");
-const { signAccessToken, signRefreshToken } = require("../config/jwt.helper");
+const {
+  signAccessToken,
+  signRefreshToken,
+  verifyRefreshToken,
+} = require("../config/jwt.helper");
 const keys = require("../config/keys");
 
 const registerController = async (req, res) => {
@@ -42,57 +46,65 @@ const registerController = async (req, res) => {
   }
 };
 
-function loginController(req, res) {
+async function loginController(req, res) {
   const { errors, isValid } = validateLoginInput(req.body);
 
   // Check validation
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
 
-  const email = req.body.email;
-  const password = req.body.password;
-
-  // Find user by email
-  User.findOne({ email }).then((user) => {
-    // Check if user exists
-    if (!user) {
-      return res.status(404).json({ email: "Email not found" });
+  try {
+    if (!isValid) {
+      return res.status(400).json(errors);
     }
-    // Check password
-    bcrypt.compare(password, user.password).then((isMatch) => {
-      if (isMatch) {
-        // User Matched
-        //  create JWT Payload
-        const payload = {
-          id: user.id,
-          name: user.name,
-        };
+    const email = req.body.email;
+    const password = req.body.password;
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw createError.BadRequest();
+    }
 
-        // login token
-        jwt.sign(
-          payload,
-          keys.secretOrKey,
-          {
-            expiresIn: 31556926, //1 year in seconds
-          },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: "Bearer " + token,
-            });
-          }
-        );
-      } else {
-        return res
-          .status(400)
-          .json({ passwordincorrect: "Password is incorrect" });
-      }
-    });
-  });
-
-  //   console.log(req.body);
-  //   res.send("login");
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      res.send({ message: "Password didn't match Try Again", success: false });
+    }
+    const accessToken = await signAccessToken(user.userId);
+    const refreshToken = await signRefreshToken(user.userId);
+    res.send({ accessToken, refreshToken });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-module.exports = { registerController, loginController };
+async function refreshTokenController(req, res, next) {
+  let { refreshToken } = req.body;
+  try {
+    if (!refreshToken) {
+      throw createError.BadRequest();
+    }
+    const userId = await verifyRefreshToken(refreshToken);
+    const accessToken = await signAccessToken(userId);
+    const rToken = await signRefreshToken(userId);
+    res.send({ accessToken, refreshToken: rToken });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function logoutController(req, res) {
+  try {
+    let { refreshToken } = req.body;
+    if (!refreshToken) throw createError.BadRequest();
+
+    let userId = await verifyRefreshToken(refreshToken);
+
+    res.sendStatus(204);
+  } catch (error) {
+    res.send(error);
+  }
+}
+
+module.exports = {
+  registerController,
+  loginController,
+  refreshTokenController,
+  logoutController,
+};
