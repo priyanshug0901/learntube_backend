@@ -74,8 +74,9 @@ function loginController(req, res) {
           },
           (err, token) => {
             res.json({
+              user,
               success: true,
-              token: "Bearer " + token,
+              token: token,
             });
           }
         );
