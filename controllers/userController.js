@@ -61,7 +61,6 @@ async function loginController(req, res) {
     if (!user) {
       throw createError.BadRequest();
     }
-
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
       res.send({ message: "Password didn't match Try Again", success: false });
@@ -73,6 +72,7 @@ async function loginController(req, res) {
     console.log(error);
   }
 }
+
 
 async function refreshTokenController(req, res, next) {
   let { refreshToken } = req.body;
