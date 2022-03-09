@@ -59,11 +59,14 @@ async function loginController(req, res) {
     const password = req.body.password;
     const user = await User.findOne({ email });
     if (!user) {
-      throw createError.BadRequest();
+      throw res.status(403).json({ success: false, message: "Forbidden" });
     }
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      res.send({ message: "Password didn't match Try Again", success: false });
+      return res.status(403).json({
+        message: "Incorrect Password",
+        success: false,
+      });
     }
     const accessToken = await signAccessToken(user.userId);
     const refreshToken = await signRefreshToken(user.userId);
@@ -72,7 +75,6 @@ async function loginController(req, res) {
     console.log(error);
   }
 }
-
 
 async function refreshTokenController(req, res, next) {
   let { refreshToken } = req.body;
