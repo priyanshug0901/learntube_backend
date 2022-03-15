@@ -15,6 +15,6 @@ router.post("/:id", verifyAccessToken, addRecordController);
 router.get("/:id", verifyAccessToken, getUserLikedQuestionController);
 
 router.put("/:id", verifyAccessToken, userLikedQuestionController);
-router.get("/:userId", verifyAccessToken, getUserQuestionController);
+router.get("/user/:userId", verifyAccessToken, getUserQuestionController);
 
 module.exports = router;

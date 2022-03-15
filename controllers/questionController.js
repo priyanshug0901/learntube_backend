@@ -54,6 +54,7 @@ function userLikedQuestionController(req, res, next) {
 async function getUserQuestionController(req, res) {
   try {
     const { userId } = req.params;
+    console.log(userId);
     const data = await ulwSchema.find({ userId });
     res.status(200).json({ questions: data });
   } catch (error) {
@@ -64,8 +65,8 @@ async function getUserQuestionController(req, res) {
 async function getUserLikedQuestionController(req, res) {
   try {
     const { id } = req.params;
-    console.log(id);
-    const { data } = await ulwSchema.findOne({ _id: id });
+    console.log("67", id);
+    const data = await ulwSchema.findOne({ _id: id });
     res.status(200).json({ question: data });
   } catch (error) {
     console.log(error.message);
