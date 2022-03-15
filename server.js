@@ -15,7 +15,7 @@ const MongoStore = require("connect-mongo");
 const port = process.env.PORT || 5000;
 require("./db/conn");
 
-app.use(morgan('tiny'));
+app.use(morgan("tiny"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
@@ -34,6 +34,8 @@ app.use("/api/question", questionRoutes);
 app.use("/api/user", verifyAccessToken, playlistRoutes);
 app.use("/api/user/history", verifyAccessToken, historyRoutes);
 
-app.listen(port, () => console.log(`Server is listening on port: ${port}`));
+app.listen(process.env.PORT || 5000, () =>
+  console.log(`Server is listening on port: ${port}`)
+);
 
 module.exports = app;
