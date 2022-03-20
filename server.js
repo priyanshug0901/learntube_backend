@@ -9,12 +9,14 @@ const historyRoutes = require("./routes/historyRoutes");
 const passport = require("passport");
 const morgan = require("morgan");
 const { verifyAccessToken } = require("./config/jwt.helper");
+const cors = require("cors");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 
 const port = process.env.PORT || 5000;
 require("./db/conn");
 
+app.use(cors());
 app.use(morgan("tiny"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
