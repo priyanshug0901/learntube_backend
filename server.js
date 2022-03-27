@@ -25,9 +25,6 @@ const options = {
   mongoUrl: process.env.LOCAL_DATABASE,
   collectionName: "sessions",
 };
-// app.use(
-
-// );
 require("./config/passport").Passport(passport);
 
 app.use("/dsa", dsaRoutes);

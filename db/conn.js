@@ -3,7 +3,7 @@ require("dotenv").config();
 const { Schema } = mongoose;
 
 mongoose
-  .connect(process.env.LOCAL_DATABASE, {
+  .connect(process.env.LOCAL_DATABASE || process.env.SERVER_DATABASE, {
     autoIndex: false, // Don't build indexes
     maxPoolSize: 10, // Maintain up to 10 socket connections
     serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds

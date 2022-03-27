@@ -33,7 +33,7 @@ function addRecordController(req, res) {
 
 function userLikedQuestionController(req, res, next) {
   let { id, userId, questionId, isLiked, isWatchLater } = req.body;
-  console.log(req.body);
+  console.log("1", req.body);
   const updateQuestion = new ulwSchema({
     _id: id,
     liked: isLiked,
