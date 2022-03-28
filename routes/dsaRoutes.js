@@ -9,7 +9,6 @@ dsaRoutes.get("/", async (req, res) => {
       let topic = req.query.topic;
       let reg = new RegExp(topic);
       const questions = await questionModel.find({ pattern: reg });
-      console.log(questions);
       return res.status(200).json({ success: true, result: questions });
     }
     const questions = await questionModel.find();
