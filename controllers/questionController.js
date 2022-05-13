@@ -47,7 +47,7 @@ function userLikedQuestionController(req, res, next) {
       res.status(201).json({ success: true, msg: "Updated Successfull" });
     })
     .catch((err) => {
-      console.log(err);
+      res.json({ success: false, msg: "Please login first,then try again" });
     });
 }
 

@@ -34,7 +34,7 @@ module.exports = {
       if (err) {
         const message =
           err.message === "JsonWebTokenError" ? "Unauthorized" : err.message;
-        next(createError.Unauthorized(message));
+        next("Please login first,then try again");
       }
       payload = req.payload;
     });
