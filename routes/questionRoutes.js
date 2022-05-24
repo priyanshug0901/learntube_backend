@@ -10,7 +10,7 @@ const {
 } = require("../controllers/questionController");
 const router = express.Router();
 
-router.get("/", getQuestionController);
+router.get("/:quesId", getQuestionController);
 router.post("/:id", verifyAccessToken, addRecordController);
 router.get("/:id", verifyAccessToken, getUserLikedQuestionController);
 

@@ -1,6 +1,15 @@
+const questionSchema = require("../models/questionSchema");
 const ulwSchema = require("../models/ulwSchema");
 
-function getQuestionController(req, res) {
+async function getQuestionController(req, res) {
+  let { quesId } = req.params;
+  try {
+    const data = await questionSchema.find({ id: quesId });
+    res.json({ msg: "success", question: data });
+  } catch (error) {
+    console.log(error);
+  }
+  console.log(req.params);
   res.send("hello");
 }
 
