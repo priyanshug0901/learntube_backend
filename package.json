@@ -5,6 +5,7 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.1",
     "concurrently": "^7.0.0",

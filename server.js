@@ -6,6 +6,7 @@ const userRoutes = require("./routes/userRoutes");
 const questionRoutes = require("./routes/questionRoutes");
 const playlistRoutes = require("./routes/playlistRoutes");
 const historyRoutes = require("./routes/historyRoutes");
+const playgroundRoutes = require("./routes/playgroundRoutes");
 const passport = require("passport");
 const morgan = require("morgan");
 const { verifyAccessToken } = require("./config/jwt.helper");
@@ -32,6 +33,7 @@ app.use("/api", userRoutes);
 app.use("/api/question", questionRoutes);
 app.use("/api/user", verifyAccessToken, playlistRoutes);
 app.use("/api/user/history", verifyAccessToken, historyRoutes);
+app.use("/playground", playgroundRoutes);
 
 app.listen(process.env.PORT || 5000, () =>
   console.log(`Server is listening on port: ${port}`)
