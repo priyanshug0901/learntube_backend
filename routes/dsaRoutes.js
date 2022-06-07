@@ -3,7 +3,7 @@ const dsaRoutes = express.Router();
 const questionModel = require("../models/questionSchema");
 const paginatedResults = require("./paginated");
 
-dsaRoutes.get("/", paginatedResults(questionModel), async (req, res) => {
+dsaRoutes.get("/", async (req, res) => {
   try {
     console.log(req.query);
     if (req.query.topic) {

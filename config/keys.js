@@ -6,7 +6,7 @@ const key2 = crypto.randomBytes(32).toString("hex");
 require("dotenv").config();
 
 module.exports = {
-  mongoURI: process.env.LOCAL_DATABASE,
+  mongoURI: process.env.LOCAL_DATABASE || process.env.SERVER_DATABASE,
   ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
   REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
 };
